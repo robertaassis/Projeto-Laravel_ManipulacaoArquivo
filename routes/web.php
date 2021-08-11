@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PessoaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,4 +16,5 @@ use App\Http\Controllers\HomeController;
 
 Route::get('/', [Homecontroller::class,'index']);
 Route::post('/events', [Homecontroller::class,'store']);
-
+Route::get('escreverArquivo', [PessoaController::class,'criaArquivo']);
+Route::get('lerArquivo', [PessoaController::class,'lerArquivo']);

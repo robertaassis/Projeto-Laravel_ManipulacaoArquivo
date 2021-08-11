@@ -82,12 +82,12 @@
     </form>
     </div>
     <hr>
-    @if(session('msg'))
+    {{-- @if(session('msg'))
                     <h3>{{session('msg')}}</h3>
-    @endif
-     @if(!$usuario->isEmpty())  <!-- so printa a tabela se tiver alguem guardado em usuario -->
+    @endif --}}
+     @if(!empty($usuario))  <!-- so printa a tabela se tiver alguem guardado em usuario -->
     <table border>
-    
+     {{-- @php print_r( $usuario[0]['telefones']);exit; @endphp  --}}
       <thead>
         <h2> Dados Gravados </h2>
           <tr> 
@@ -97,13 +97,20 @@
           </tr>
           
            @for($i=0;$i<count($usuario);$i++)
-           @php $telefone=Telefone::where('id_usuario','=',$usuario[$i]->id)->get(); @endphp
+           {{-- @php $telefone=Telefone::where('id_usuario','=',$usuario[$i]->id)->get(); @endphp --}}
             <tr>
-                <td>{{$usuario[$i]->nome}} </td>
-                <td>{{$usuario[$i]->cpf}} </td>
+                <td>{{$usuario[$i]['nome']}} </td>
+                <td>{{$usuario[$i]['cpf']}} </td>
                 <td>
-             @foreach($telefone as $cels)  {{$cels->telefone}} - {{$cels->descricao}} <br>
-             @endforeach
+                @for($j=0;$j<count($usuario[$i]['telefones']);$j++)
+                {{$usuario[$i]['telefones'][$j]}}
+                <br>
+                    
+                @endfor
+                </td>
+
+             {{-- @foreach($usuario[$i]['telefones'][$i] as $cels)  {{$cels}} <br>
+             @endforeach --}}
             </td>
             </tr>
             
@@ -113,4 +120,4 @@
         </table>
         @endif
     </body>
-    </html>
+    </html> 
